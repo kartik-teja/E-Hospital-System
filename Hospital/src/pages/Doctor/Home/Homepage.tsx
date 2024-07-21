@@ -1,37 +1,34 @@
-import React from 'react';
-import Sidebar from './Sidebar';
+// Dashboard.js
 
-const LandingScreen = () => {
-    return (
-        <div className="d-flex">
-            <Sidebar />
-            <div className="flex-grow-1">
-                <div className="container-fluid">
-                    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                        <div className="container-fluid">
-                            <a className="navbar-brand" href="#">Institute of Aeronautical Engineers</a>
-                            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                                <span className="navbar-toggler-icon"></span>
-                            </button>
-                            <div className="collapse navbar-collapse" id="navbarNav">
-                                <ul className="navbar-nav ms-auto">
-                                    <li className="nav-item">
-                                        <a className="nav-link" href="#">Home</a>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a className="nav-link" href="#">Contact</a>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a className="nav-link" href="#">Sign out</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    );
+import React, { Suspense } from 'react';
+
+const Dashboard = () => {
+  const [activeTab, setActiveTab] = useState('dashboard');
+
+  const loadSettingsComponent = () => import('./Settings'); 
+
+  const renderTabContent = () => {
+    switch (activeTab) {
+      case 'dashboard':
+        return <DashboardTab />;
+      case 'settings':
+        return (
+          <Suspense fallback={<div>Loading...</div>}>
+            <SettingsTab />
+          </Suspense>
+        );
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <div>
+      <button onClick={() => setActiveTab('dashboard')}>Dashboard</button>
+      <button onClick={() => setActiveTab('settings')}>Settings</button>
+      {renderTabContent()}
+    </div>
+  );
 };
 
-export default LandingScreen;
+export default Dashboard;

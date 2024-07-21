@@ -18,12 +18,25 @@
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
 
+  <!-- Import Map -->
+  <script type="importmap">
+    {
+      "imports": {
+        "react": "/path/to/react.js",
+        "react-dom": "/path/to/react-dom.js",
+        "main": "/src/main.jsx"
+        // Add other module mappings as needed
+      }
+    }
+  </script>
 
 </head>
 
-<body style="height: 100vh;">
-  <div id="root" class="container-fluid h-100"></div>
-  <script type="module" src="/src/main.jsx"></script>
+<body style="height: 100vh; background-color: beige;">
+  <div id="root" class="container-fluid p-0"></div>
+  <script type="module">
+    import '/src/main.jsx'; // Importing the main module as per the import map
+  </script>
 </body>
 
 </html>
